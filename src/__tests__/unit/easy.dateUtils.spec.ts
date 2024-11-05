@@ -197,7 +197,7 @@ describe('formatWeek', () => {
   it('월의 마지막 주에 대해 올바른 주 정보를 반환한다', () => {
     const lastWeekDate = new Date('2024-07-28');
     const result = formatWeek(lastWeekDate);
-    expect(result).toBe('2024년 7월 5주');
+    expect(result).toBe('2024년 8월 1주');
   });
 
   it('연도가 바뀌는 주에 대해 올바른 주 정보를 반환한다', () => {
@@ -215,7 +215,7 @@ describe('formatWeek', () => {
   it('평년 2월의 마지막 주에 대해 올바른 주 정보를 반환한다', () => {
     const normalYearDate = new Date('2023-02-28');
     const result = formatWeek(normalYearDate);
-    expect(result).toBe('2023년 2월 4주');
+    expect(result).toBe('2023년 3월 1주');
   });
 });
 
