@@ -172,13 +172,56 @@ describe('getWeeksAtMonth', () => {
 });
 
 describe('getEventsForDay', () => {
-  it('특정 날짜(1일)에 해당하는 이벤트만 정확히 반환한다', () => {});
+  const events: Event[] = [
+    {
+      id: '1',
+      title: '팀 미팅',
+      date: '2024-07-01',
+      startTime: '10:00',
+      endTime: '11:00',
+      description: '7월 프로젝트 계획 논의',
+      location: '회의실 A',
+      category: 'meeting',
+      repeat: { type: 'none', interval: 0 },
+      notificationTime: 30,
+    },
+    {
+      id: '2',
+      title: '코드 리뷰',
+      date: '2024-07-01',
+      startTime: '14:00',
+      endTime: '15:00',
+      description: '신규 기능 코드 리뷰',
+      location: '회의실 B',
+      category: 'review',
+      repeat: { type: 'none', interval: 0 },
+      notificationTime: 15,
+    },
+  ];
 
-  it('해당 날짜에 이벤트가 없을 경우 빈 배열을 반환한다', () => {});
+  it('특정 날짜(1일)에 해당하는 이벤트만 정확히 반환한다', () => {
+    const result = getEventsForDay(events, 1);
 
-  it('날짜가 0일 경우 빈 배열을 반환한다', () => {});
+    expect(result).toEqual([events[0], events[1]]);
+  });
 
-  it('날짜가 32일 이상인 경우 빈 배열을 반환한다', () => {});
+  it('해당 날짜에 이벤트가 없을 경우 빈 배열을 반환한다', () => {
+    const result = getEventsForDay(events, 5);
+
+    expect(result).toEqual([]);
+  });
+
+  it('날짜가 0일 경우 빈 배열을 반환한다', () => {
+    const result = getEventsForDay(events, 0);
+
+    expect(result).toEqual([]);
+  });
+
+  it('날짜가 32일 이상인 경우 빈 배열을 반환한다', () => {
+    const result = getEventsForDay(events, 32);
+
+    expect(result).toEqual([]);
+  });
 });
 
 describe('formatWeek', () => {
