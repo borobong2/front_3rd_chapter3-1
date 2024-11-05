@@ -123,7 +123,52 @@ describe('getWeekDates', () => {
 });
 
 describe('getWeeksAtMonth', () => {
-  it('2024년 7월 1일의 올바른 주 정보를 반환해야 한다', () => {});
+  let date: Date;
+  let weeks: (number | null)[][];
+
+  beforeEach(() => {
+    date = new Date('2024-07-01');
+    weeks = getWeeksAtMonth(date);
+  });
+
+  it('7월은 5주로 구성되어야 한다', () => {
+    expect(weeks).toHaveLength(5);
+  });
+
+  it('첫째 주는 월요일이 null이고 1일은 화요일이어야 한다', () => {
+    const expectedFirstWeek = [null, 1, 2, 3, 4, 5, 6];
+    const firstWeek = weeks[0];
+
+    expect(firstWeek).toEqual(expectedFirstWeek);
+  });
+
+  it('둘째 주는 7일부터 13일까지여야 한다', () => {
+    const expectedSecondWeek = [7, 8, 9, 10, 11, 12, 13];
+    const secondWeek = weeks[1];
+
+    expect(secondWeek).toEqual(expectedSecondWeek);
+  });
+
+  it('셋째 주는 14일부터 20일까지여야 한다', () => {
+    const expectedThirdWeek = [14, 15, 16, 17, 18, 19, 20];
+    const thirdWeek = weeks[2];
+
+    expect(thirdWeek).toEqual(expectedThirdWeek);
+  });
+
+  it('넷째 주는 21일부터 27일까지여야 한다', () => {
+    const expectedFourthWeek = [21, 22, 23, 24, 25, 26, 27];
+    const fourthWeek = weeks[3];
+
+    expect(fourthWeek).toEqual(expectedFourthWeek);
+  });
+
+  it('마지막 주는 28일부터 31일까지이고 나머지는 null이어야 한다', () => {
+    const expectedLastWeek = [28, 29, 30, 31, null, null, null];
+    const lastWeek = weeks[4];
+
+    expect(lastWeek).toEqual(expectedLastWeek);
+  });
 });
 
 describe('getEventsForDay', () => {
