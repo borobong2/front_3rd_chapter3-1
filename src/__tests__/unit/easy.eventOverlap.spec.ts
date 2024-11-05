@@ -146,7 +146,50 @@ describe('isOverlapping', () => {
 });
 
 describe('findOverlappingEvents', () => {
-  it('새 이벤트와 겹치는 모든 이벤트를 반환한다', () => {});
+  const event: Event = {
+    id: '1',
+    title: '미팅 1',
+    date: '2024-07-01',
+    startTime: '10:00',
+    endTime: '13:00',
+    description: '테스트',
+    location: '회의실',
+    category: 'meeting',
+    repeat: { type: 'none', interval: 0 },
+    notificationTime: 30,
+  };
 
-  it('겹치는 이벤트가 없으면 빈 배열을 반환한다', () => {});
+  it('새 이벤트와 겹치는 모든 이벤트를 반환한다', () => {
+    const events = [
+      { ...event, id: '1', startTime: '12:00', endTime: '13:00' },
+      { ...event, id: '2', startTime: '14:00', endTime: '15:00' },
+    ];
+    const newEvent = {
+      ...event,
+      id: '3',
+      startTime: '12:00',
+      endTime: '12:30',
+    };
+
+    const overlappingEvents = findOverlappingEvents(newEvent, events);
+
+    expect(overlappingEvents).toEqual([events[0]]);
+  });
+
+  it('겹치는 이벤트가 없으면 빈 배열을 반환한다', () => {
+    const events = [
+      { ...event, id: '1', startTime: '12:00', endTime: '13:00' },
+      { ...event, id: '2', startTime: '14:00', endTime: '15:00' },
+    ];
+    const newEvent = {
+      ...event,
+      id: '3',
+      startTime: '13:00',
+      endTime: '14:00',
+    };
+
+    const overlappingEvents = findOverlappingEvents(newEvent, events);
+
+    expect(overlappingEvents).toEqual([]);
+  });
 });
