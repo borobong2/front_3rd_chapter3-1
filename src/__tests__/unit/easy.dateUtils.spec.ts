@@ -44,19 +44,82 @@ describe('getDaysInMonth', () => {
 });
 
 describe('getWeekDates', () => {
-  it('주중의 날짜(수요일)에 대해 올바른 주의 날짜들을 반환한다', () => {});
+  it('주중의 날짜(수요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
+    const wednesday = new Date('2024-11-06');
+    const weekDates = getWeekDates(wednesday);
+    const startDayOfWeek = weekDates[0].getDate();
+    const endDayOfWeek = weekDates[6].getDate();
 
-  it('주의 시작(월요일)에 대해 올바른 주의 날짜들을 반환한다', () => {});
+    expect(weekDates).toHaveLength(7);
+    expect(startDayOfWeek).toBe(3);
+    expect(endDayOfWeek).toBe(9);
+  });
 
-  it('주의 끝(일요일)에 대해 올바른 주의 날짜들을 반환한다', () => {});
+  it('주의 시작(월요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
+    const monday = new Date('2024-11-04');
+    const weekDates = getWeekDates(monday);
+    const startDayOfWeek = weekDates[0].getDate();
+    const endDayOfWeek = weekDates[6].getDate();
 
-  it('연도를 넘어가는 주의 날짜를 정확히 처리한다 (연말)', () => {});
+    expect(weekDates).toHaveLength(7);
+    expect(startDayOfWeek).toBe(3);
+    expect(endDayOfWeek).toBe(9);
+  });
 
-  it('연도를 넘어가는 주의 날짜를 정확히 처리한다 (연초)', () => {});
+  it('주의 끝(일요일)에 대해 올바른 주의 날짜들을 반환한다', () => {
+    const sunday = new Date('2024-11-10');
+    const weekDates = getWeekDates(sunday);
+    const startDayOfWeek = weekDates[0].getDate();
+    const endDayOfWeek = weekDates[6].getDate();
 
-  it('윤년의 2월 29일을 포함한 주를 올바르게 처리한다', () => {});
+    expect(weekDates).toHaveLength(7);
+    expect(startDayOfWeek).toBe(10);
+    expect(endDayOfWeek).toBe(16);
+  });
 
-  it('월의 마지막 날짜를 포함한 주를 올바르게 처리한다', () => {});
+  it('연도를 넘어가는 주의 날짜를 정확히 처리한다 (연말)', () => {
+    const endOfYear = new Date('2024-12-31');
+    const weekDates = getWeekDates(endOfYear);
+    const startDayOfWeek = weekDates[0].getDate();
+    const endDayOfWeek = weekDates[6].getDate();
+
+    expect(weekDates).toHaveLength(7);
+    expect(startDayOfWeek).toBe(29);
+    expect(endDayOfWeek).toBe(4);
+  });
+
+  it('연도를 넘어가는 주의 날짜를 정확히 처리한다 (연초)', () => {
+    const startOfYear = new Date('2024-01-01');
+    const weekDates = getWeekDates(startOfYear);
+    const startFullDate = weekDates[0].toISOString().slice(0, 10);
+    const endFullDate = weekDates[6].toISOString().slice(0, 10);
+
+    expect(weekDates).toHaveLength(7);
+    expect(startFullDate).toBe('2023-12-31');
+    expect(endFullDate).toBe('2024-01-06');
+  });
+
+  it('윤년의 2월 29일을 포함한 주를 올바르게 처리한다', () => {
+    const leapDay = new Date('2024-02-29');
+    const weekDates = getWeekDates(leapDay);
+    const startFullDate = weekDates[0].toISOString().slice(0, 10);
+    const endFullDate = weekDates[6].toISOString().slice(0, 10);
+
+    expect(weekDates).toHaveLength(7);
+    expect(startFullDate).toBe('2024-02-25');
+    expect(endFullDate).toBe('2024-03-02');
+  });
+
+  it('월의 마지막 날짜를 포함한 주를 올바르게 처리한다', () => {
+    const lastDayOfMonth = new Date('2024-11-30');
+    const weekDates = getWeekDates(lastDayOfMonth);
+    const startFullDate = weekDates[0].toISOString().slice(0, 10);
+    const endFullDate = weekDates[6].toISOString().slice(0, 10);
+
+    expect(weekDates).toHaveLength(7);
+    expect(startFullDate).toBe('2024-11-24');
+    expect(endFullDate).toBe('2024-11-30');
+  });
 });
 
 describe('getWeeksAtMonth', () => {
