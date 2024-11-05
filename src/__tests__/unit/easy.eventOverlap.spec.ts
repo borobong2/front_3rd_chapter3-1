@@ -111,9 +111,38 @@ describe('convertEventToDateRange', () => {
 });
 
 describe('isOverlapping', () => {
-  it('두 이벤트가 겹치는 경우 true를 반환한다', () => {});
+  const event: Event = {
+    id: '1',
+    title: '기준 이벤트',
+    date: '2024-07-01',
+    startTime: '14:00',
+    endTime: '16:00',
+    description: '테스트',
+    location: '회의실',
+    category: 'meeting',
+    repeat: { type: 'none', interval: 0 },
+    notificationTime: 30,
+  };
 
-  it('두 이벤트가 겹치지 않는 경우 false를 반환한다', () => {});
+  it('두 이벤트가 겹치는 경우 true를 반환한다', () => {
+    const overlappingEvent: Event = {
+      ...event,
+      startTime: '15:00',
+      endTime: '17:00',
+    };
+
+    expect(isOverlapping(event, overlappingEvent)).toBe(true);
+  });
+
+  it('두 이벤트가 겹치지 않는 경우 false를 반환한다', () => {
+    const nonOverlappingEvent: Event = {
+      ...event,
+      startTime: '17:00',
+      endTime: '18:00',
+    };
+
+    expect(isOverlapping(event, nonOverlappingEvent)).toBe(false);
+  });
 });
 
 describe('findOverlappingEvents', () => {
