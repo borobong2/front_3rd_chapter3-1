@@ -32,11 +32,13 @@ describe('getDaysInMonth', () => {
     expect(result).toBe(28);
   });
 
-  it('유효하지 않은 월에 대해 적절히 처리한다', () => {
+  it('13월은 다음 해 1월로 처리되어 31일을 반환한다', () => {
     const invalidMonthResult13 = getDaysInMonth(2024, 13);
-    const invalidMonthResult0 = getDaysInMonth(2024, 0);
-
     expect(invalidMonthResult13).toBe(31);
+  });
+
+  it('0월은 이전 해 12월로 처리되어 31일을 반환한다', () => {
+    const invalidMonthResult0 = getDaysInMonth(2024, 0);
     expect(invalidMonthResult0).toBe(31);
   });
 });
