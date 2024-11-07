@@ -3,7 +3,7 @@ import { Box, Flex } from '@chakra-ui/react';
 import { AlertSection } from './components/AlertSection';
 import { Calendar } from './components/calendar/Calendar';
 import { EventForm } from './components/eventForm/EventForm.tsx';
-import { EventListSection } from './components/EventListSection';
+import { EventList } from './components/eventList/EventList';
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Flex gap={6} h="full">
         <EventForm />
         <Calendar />
-        <EventListSection />
+        <EventList />
       </Flex>
       <AlertSection />
     </Box>
