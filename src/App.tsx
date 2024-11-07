@@ -38,9 +38,11 @@ import {
   useToast,
   VStack,
 } from '@chakra-ui/react';
+import { atom, useAtom } from 'jotai';
 import { useRef, useState } from 'react';
 
 import { useCalendarView } from './hooks/useCalendarView.ts';
+import { useDialog } from './hooks/useDialog.ts';
 import { useEventForm } from './hooks/useEventForm.ts';
 import { useEventOperations } from './hooks/useEventOperations.ts';
 import { useNotifications } from './hooks/useNotifications.ts';
@@ -68,7 +70,6 @@ const notificationOptions = [
   { value: 120, label: '2시간 전' },
   { value: 1440, label: '1일 전' },
 ];
-
 function App() {
   const {
     title,
@@ -110,9 +111,9 @@ function App() {
   const { notifications, notifiedEvents, setNotifications } = useNotifications(events);
   const { view, setView, currentDate, holidays, navigate } = useCalendarView();
   const { searchTerm, filteredEvents, setSearchTerm } = useSearch(events, currentDate, view);
+  const { isOverlapDialogOpen, setIsOverlapDialogOpen, overlappingEvents, setOverlappingEvents } =
+    useDialog();
 
-  const [isOverlapDialogOpen, setIsOverlapDialogOpen] = useState(false);
-  const [overlappingEvents, setOverlappingEvents] = useState<Event[]>([]);
   const cancelRef = useRef<HTMLButtonElement>(null);
 
   const toast = useToast();
