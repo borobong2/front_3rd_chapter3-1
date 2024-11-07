@@ -16,12 +16,12 @@ import {
 } from '@chakra-ui/react';
 import { useRef } from 'react';
 
-import { useDialog } from '../hooks/useDialog';
-import { useEventForm } from '../hooks/useEventForm';
-import { useEventOperations } from '../hooks/useEventOperations';
-import { useNotifications } from '../hooks/useNotifications';
+import { useDialog } from '../../hooks/useDialog';
+import { useEventForm } from '../../hooks/useEventForm';
+import { useEventOperations } from '../../hooks/useEventOperations';
+import { useNotifications } from '../../hooks/useNotifications';
 
-export function AlertSection() {
+export function Dialog() {
   const {
     title,
     date,

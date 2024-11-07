@@ -1,7 +1,7 @@
 import { Box, Flex } from '@chakra-ui/react';
 
-import { AlertSection } from './components/AlertSection';
 import { Calendar } from './components/calendar/Calendar';
+import { Dialog } from './components/dialog/Dialog.tsx';
 import { EventForm } from './components/eventForm/EventForm.tsx';
 import { EventList } from './components/eventList/EventList';
 
@@ -13,7 +13,7 @@ function App() {
         <Calendar />
         <EventList />
       </Flex>
-      <AlertSection />
+      <Dialog />
     </Box>
   );
 }
